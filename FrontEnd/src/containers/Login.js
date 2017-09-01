@@ -30,7 +30,7 @@ class Login extends Component {
     fetch('https://gridironyard-api.herokuapp.com/users/',
     {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
@@ -57,7 +57,7 @@ class Login extends Component {
     fetch('https://gridironyard-api.herokuapp.com/users/new/',
     {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
