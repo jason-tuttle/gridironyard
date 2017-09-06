@@ -17,7 +17,7 @@ class KickPlayerTable extends React.Component {
   render() {
     const {players, onClick, team, addPlayer, dropPlayer} = this.props;
     return (
-      <Table celled singleLine sortable inverted size='small'>
+      <Table celled singleLine sortable inverted size='small' unstackable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />

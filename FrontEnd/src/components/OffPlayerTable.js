@@ -19,7 +19,7 @@ class OffPlayerTable extends React.Component {
     const {players, onClick, team, addPlayer, dropPlayer} = this.props;
     console.log(team);
     return (
-      <Table celled singleLine sortable inverted size='small'>
+      <Table celled singleLine sortable inverted size='small' unstackable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell />

@@ -14,7 +14,7 @@ class GameBoard extends Component {
 
   fetchGame = (gameId) => {
     this.setState({loading: true});
-    fetch(`http://www.nfl.com/liveupdate/game-center/${gameId}/${gameId}_gtd.json`)
+    fetch(`https://www.nfl.com/liveupdate/game-center/${gameId}/${gameId}_gtd.json`)
     .then(function(response) {
       console.log(response.status);
       if (response.status === 200) return response.json();

@@ -15,7 +15,7 @@ export default class NFLScoreboard extends Component {
 
   fetchScores = () => {
     console.log('Fetching scores...');
-    fetch('http://www.nfl.com/liveupdate/scores/scores.json')
+    fetch('https://www.nfl.com/liveupdate/scores/scores.json')
     .then(response => response.json())
     .then(scores => {
       const activeGames = Object.keys(scores).reduce((total, game) => {
