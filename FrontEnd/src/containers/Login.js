@@ -15,7 +15,8 @@ class Login extends Component {
         password: ''
       },
       loginerror: false,
-      registererror: false
+      registererror: false,
+      loading: false
     }
   }
 
@@ -27,6 +28,7 @@ class Login extends Component {
   handleLogin = () => {
     const {loginUser} = this.props;
     const {user} = this.state;
+    this.setState({loading: true});
     fetch('https://gridironyard-api.herokuapp.com/users/',
     {
       method: 'POST',
@@ -40,20 +42,21 @@ class Login extends Component {
     .then(response => response.json())
     .then(user => {
       if (!user.error) {
-        this.setState({loginerror: false})
+        this.setState({loginerror: false, loading: false})
         loginUser(user);
       } else {
-        this.setState({loginerror: true});
+        this.setState({loginerror: true, loading: false});
       }
     })
     .catch(error => {
       console.log(error);
-      this.setState({loginerror: true});
+      this.setState({loginerror: true, loading: false});
     });
   }
 
   handleRegister = (form) => {
     const {loginUser} = this.props;
+    this.setState({loading: true});
     fetch('https://gridironyard-api.herokuapp.com/users/new/',
     {
       method: 'POST',
@@ -66,9 +69,10 @@ class Login extends Component {
     })
     .then(response => {
       if (response.ok) {
+        this.setState({loading: false});
         return response.json();
       } else {
-        this.setState({registererror: true});
+        this.setState({registererror: true, loading: false});
         throw new Error('Something went wrong');
       }
     })
@@ -80,7 +84,7 @@ class Login extends Component {
   }
 
   render() {
-    const { user, loginerror, registererror } = this.state;
+    const { user, loginerror, registererror, loading } = this.state;
     const { username, password } = user;
     // const { onClick } = this.props;
     return (
@@ -88,7 +92,7 @@ class Login extends Component {
         <Divider horizontal>LOG IN TO YOUR TEAM</Divider>
         <Segment color='grey'>
           <div style={{width: '100%'}}>
-          <Form style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'center'}} onSubmit={this.handleLogin} error={loginerror}>
+          <Form style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'center'}} onSubmit={this.handleLogin} error={loginerror} loading={loading}>
             <Form.Group>
               <Form.Input placeholder='User Name' name='username' type='text' value={username} onChange={this.handleChange} autoFocus/>
               <Form.Input placeholder='Password' name='password' type='password' value={password} onChange={this.handleChange} />
@@ -105,7 +109,7 @@ class Login extends Component {
         </Segment>
         <Divider horizontal>OR SIGN UP</Divider>
         <Segment color="blue" style={{alignItems: 'center'}}>
-          <Register onSubmit={this.handleRegister} error={registererror}/>
+          <Register onSubmit={this.handleRegister} error={registererror} loading={loading}/>
         </Segment>
 
       </div>

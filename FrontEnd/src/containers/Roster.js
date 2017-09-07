@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Segment, Label } from 'semantic-ui-react';
-import data from '../data/data';
 import { addPlayer, dropPlayer, sortPlayers } from '../actions/actions';
 import OffPlayerTable from '../components/OffPlayerTable';
 import DefPlayerTable from '../components/DefPlayerTable';

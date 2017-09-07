@@ -14,11 +14,10 @@ class GameBoard extends Component {
 
   fetchGame = (gameId) => {
     this.setState({loading: true});
-    fetch(`https://www.nfl.com/liveupdate/game-center/${gameId}/${gameId}_gtd.json`)
+    fetch(`http://www.nfl.com/liveupdate/game-center/${gameId}/${gameId}_gtd.json`)
     .then(function(response) {
-      console.log(response.status);
       if (response.status === 200) return response.json();
-      else throw new Error(`Responsed ${response.status}: Something wrong with that game ID`);
+      else throw new Error(`Responded ${response.status}: Something wrong with that game ID`);
     })
     .then(data => {
       this.setState({gameId, game: data[gameId], loading: false});

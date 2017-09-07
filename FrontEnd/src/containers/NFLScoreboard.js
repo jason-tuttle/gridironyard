@@ -14,8 +14,7 @@ export default class NFLScoreboard extends Component {
   }
 
   fetchScores = () => {
-    console.log('Fetching scores...');
-    fetch('https://www.nfl.com/liveupdate/scores/scores.json')
+    fetch('https://gridironyard-api.herokuapp.com/live_update')
     .then(response => response.json())
     .then(scores => {
       const activeGames = Object.keys(scores).reduce((total, game) => {
@@ -28,7 +27,6 @@ export default class NFLScoreboard extends Component {
   }
 
   selectGame = (id) => {
-    console.log(id);
     this.setState({selectedGame: id });
   }
 

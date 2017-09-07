@@ -22,31 +22,11 @@ export default class Register extends Component {
     })
   }
 
-  handleSubmit = () => {
-    const form = this.state;
-    console.log(form);
-    fetch('https://gridironyard-api.herokuapp.com/users/new/',
-    {
-      method: 'POST',
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(form)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-      }
-    )
-    .catch(error => console.log(error.json()));
-  }
-
   render() {
-    const {onSubmit, error} = this.props;
+    const {onSubmit, error, loading} = this.props;
     return (
       <div style={{width: '50%', margin: 'auto'}}>
-        <Form color='blue' onSubmit={() => onSubmit(this.state)} error={error}><Header>New Player:</Header>
+        <Form color='blue' onSubmit={() => onSubmit(this.state)} error={error} loading={loading} ><Header>New Player:</Header>
           <Form.Input placeholder='Username' type='text' onChange={this.handleChange('username')}/>
           <Form.Input placeholder='Email Address' type='email' onChange={this.handleChange('email')} />
           <Form.Group widths='equal'>
