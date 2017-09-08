@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Dimmer, Loader, Menu, Header, Container, Image, Feed } from 'semantic-ui-react';
+import { Segment, Dimmer, Loader, Menu, Header, Container, Image, Feed, Grid, List, Accordion, Label } from 'semantic-ui-react';
 
 class GameBoard extends Component {
 
@@ -92,7 +92,7 @@ class GameBoard extends Component {
             <Segment vertical>
               {game.qtr && game.qtr !== 'Final' ? `${downString[game.down || 1]} & ${game.togo}, ball on ${game.yl}` : ''}
               <Header size='small'>Last Play:</Header>
-              <span style={{fontWeight: 'bold'}}>{lastPlay.posteam || 'PRE'}</span> {lastPlay.desc || 'GAME'}
+              <span style={{fontWeight: 'bold'}}>{lastPlay.posteam}</span> {lastPlay.desc}
             </Segment>
             <Segment vertical>
               <Header size='small'>Scoring Summary:</Header>
@@ -107,7 +107,7 @@ class GameBoard extends Component {
                     </Feed.Label>
                     <Feed.Content>
                       <Feed.Summary>
-                        <Feed.User>{type}&nbsp;{team}</Feed.User> {desc}
+                        <Feed.User>{type}&nbsp;&mdash;&nbsp;{team}</Feed.User> {desc}
                         <Feed.Date>{qtr} QTR</Feed.Date>
                       </Feed.Summary>
                     </Feed.Content>
@@ -116,6 +116,69 @@ class GameBoard extends Component {
               )}
               </Feed>
             </Segment>
+
+                  <Accordion styled fluid>
+                    <Accordion.Title><Label color='grey'>Team Stats</Label></Accordion.Title>
+                    <Accordion.Content>
+                      <Grid celled>
+                        <Grid.Row columns={4}>
+                          <Grid.Column textAlign='right'>
+                            <Header>{game.home.abbr}</Header>
+                            <List>
+                              <List.Item>First Downs:</List.Item>
+                              <List.Item>Total Yards:</List.Item>
+                              <List.Item>Passing Yds:</List.Item>
+                              <List.Item>Rushing Yds:</List.Item>
+                              <List.Item>Penalties:</List.Item>
+                              <List.Item>Penalty Yds:</List.Item>
+                              <List.Item>Turnovers:</List.Item>
+                              <List.Item>Punts:</List.Item>
+                              <List.Item>Punt Yds:</List.Item>
+                              <List.Item>Punt Avg:</List.Item>
+                              <List.Item>Possesion:</List.Item>
+                            </List>
+                          </Grid.Column>
+                          <Grid.Column textAlign='left'>
+                            <Header>{game.home.score['T']}</Header>
+                            <List>
+                              {Object.values(game.home.stats.team).map((stat,idx) => (
+                                <List.Item key={idx}>{stat}</List.Item>
+                              ))}
+                            </List>
+                          </Grid.Column>
+                          <Grid.Column textAlign='right'>
+                            <Header>{game.away.abbr}</Header>
+                            <List>
+                              <List.Item>First Downs:</List.Item>
+                              <List.Item>Total Yards:</List.Item>
+                              <List.Item>Passing Yds:</List.Item>
+                              <List.Item>Rushing Yds:</List.Item>
+                              <List.Item>Penalties:</List.Item>
+                              <List.Item>Penalty Yds:</List.Item>
+                              <List.Item>Turnovers:</List.Item>
+                              <List.Item>Punts:</List.Item>
+                              <List.Item>Punt Yds:</List.Item>
+                              <List.Item>Punt Avg:</List.Item>
+                              <List.Item>Possesion:</List.Item>
+                            </List>
+                          </Grid.Column>
+                          <Grid.Column textAlign='left'>
+                            <Header>{game.away.score['T']}</Header>
+                            <List>
+                              {Object.values(game.away.stats.team).map((stat,idx) => (
+                                <List.Item key={idx}>{stat}</List.Item>
+                              ))}
+                            </List>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid>
+                    </Accordion.Content>
+                    <Accordion.Title><Label color='grey'>Top Players</Label></Accordion.Title>
+                    <Accordion.Content>
+
+                    </Accordion.Content>
+                  </Accordion>
+
           </Container>
         </Segment>
       )
