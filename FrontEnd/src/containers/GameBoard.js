@@ -14,15 +14,19 @@ class GameBoard extends Component {
 
   fetchGame = (gameId) => {
     this.setState({loading: true});
-    fetch(`http://www.nfl.com/liveupdate/game-center/${gameId}/${gameId}_gtd.json`)
+    fetch(`https://gridironyard-api.herokuapp.com/live_update/${gameId}`)
     .then(function(response) {
       if (response.status === 200) return response.json();
-      else throw new Error(`Responded ${response.status}: Something wrong with that game ID`);
+      else
+        throw new Error(`Responded ${response.status}: Something wrong with that game ID`);
     })
     .then(data => {
       this.setState({gameId, game: data[gameId], loading: false});
     })
-    .catch(error => console.log(error.message));
+    .catch(error => {
+      this.setState({game: null, loading: false});
+      console.log(error.message);
+    });
   }
 
 
@@ -88,7 +92,7 @@ class GameBoard extends Component {
             <Segment vertical>
               {game.qtr && game.qtr !== 'Final' ? `${downString[game.down || 1]} & ${game.togo}, ball on ${game.yl}` : ''}
               <Header size='small'>Last Play:</Header>
-              <span style={{fontWeight: 'bold'}}>{lastPlay.posteam}</span>: {lastPlay.desc}
+              <span style={{fontWeight: 'bold'}}>{lastPlay.posteam || 'PRE'}</span> {lastPlay.desc || 'GAME'}
             </Segment>
             <Segment vertical>
               <Header size='small'>Scoring Summary:</Header>

@@ -18,7 +18,7 @@ class NFLGameSummary extends Component {
           <tr >
           <Table.HeaderCell as='th' style={{backgroundColor: '#333333'}}>
             {game.clock !== null ?
-              <span style={{margin: '0 10px'}}>{game.qtr === 'Final' ? game.qtr : `${game.clock} ${game.qtr}Q`}</span> :
+              <span style={{margin: '0 10px'}}>{game.qtr === 'Final' || game.qtr === 'Pregame' ? game.qtr : `${game.clock} ${game.qtr}Q`}</span> :
               <span style={{margin: '0 10px'}}>{game.stadium} &mdash; {`${gameDateObj.toLocaleString('en-US', options)}`}</span>
             }
 
@@ -63,7 +63,7 @@ class NFLGameSummary extends Component {
         </Table.Body>
         <Table.Footer fullWidth>
           <Table.Row>
-            <Table.HeaderCell colSpan='6' width={16}>{game.qtr && game.qtr !== 'Final' ? `${game.down} & ${game.togo}, ball on ${game.yl}` : ''}</Table.HeaderCell>
+            <Table.HeaderCell colSpan='6' width={16}>{game.qtr && game.qtr !== 'Final' && game.qtr !== 'Pregame' ? `${game.down} & ${game.togo}, ball on ${game.yl}` : ''}</Table.HeaderCell>
           </Table.Row>
         </Table.Footer>
       </Table>

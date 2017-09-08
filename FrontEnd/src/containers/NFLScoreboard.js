@@ -27,7 +27,10 @@ export default class NFLScoreboard extends Component {
   }
 
   selectGame = (id) => {
-    this.setState({selectedGame: id });
+    if (this.state.selectedGame === null)
+      this.setState({selectedGame: id });
+    else
+      this.setState({selectedGame: null});
   }
 
   componentDidMount() {
